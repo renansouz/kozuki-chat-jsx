@@ -1,21 +1,20 @@
-import { useState } from "react"
-import { useAuthStore } from "../store/useAuthStore"
-import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react"
-import { Link } from "react-router-dom"
-import AuthImagePattern from "../components/AuthImagePattern"
-import toast from "react-hot-toast"
+import { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
+import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react";
+import { Link } from "react-router-dom";
+
+import AuthImagePattern from "../components/AuthImagePattern";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
-     
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { signup, isSigningUp } = useAuthStore() as any
+  const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
     if (!formData.fullName.trim()) return toast.error("Full name is required");
@@ -26,15 +25,15 @@ const SignUpPage = () => {
 
     return true;
   };
-   
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
 
-    const success = validateForm()
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    if(success===true) signup(formData)
-  }
+    const success = validateForm();
+
+    if (success === true) signup(formData);
+  };
+  
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
 

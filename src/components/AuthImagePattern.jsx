@@ -1,9 +1,5 @@
-interface AuthImagePatternProps {
-  title: string;
-  subtitle: string;
-}
 
-const AuthImagePattern = ({ title, subtitle }: AuthImagePatternProps) => {
+const AuthImagePattern = ({ title, subtitle }) => {
   const pyramidRows = [1, 2, 3];
 
   return (
@@ -18,8 +14,9 @@ const AuthImagePattern = ({ title, subtitle }: AuthImagePatternProps) => {
                   className={`w-0 h-0 
                     border-l-[80px] border-r-[80px] border-b-[130px] 
                     border-l-transparent border-r-transparent 
-                    border-b-primary/10 
-                    ${i % 2 === 0 ? "animate-pulse" : ""}
+                    border-b-primary/50 
+                    ${i !== 0 ? "animate-pulse" : ""}
+                    ${i !== 1 ? "animate-pulse" : ""}
                   `}
                 ></div>
               ))}

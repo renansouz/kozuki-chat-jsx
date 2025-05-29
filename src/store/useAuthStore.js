@@ -23,18 +23,30 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  signup: async(data: any) => {
+  signup: async(data) => {
     set({ isSigningUp: true })
     try {
       const res = await axiosInstance.post("/auth/signup", data)
       set({ authUser: res.data })
       toast.success("Account created successfully")
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      toast.error(error.response.data.message)
+    } catch (error) {
+      if (error && typeof error === "object" && "response" in error && error.response && typeof error.response === "object" && "data" in error.response && error.response.data && typeof error.response.data === "object" && "message" in error.response.data) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred during logout");
+      }
     } finally {
       set({ isSigningUp: false})
+    }
+  },
+
+  logout: async () => {
+    try {
+      await axiosInstance.post("/auth/logout")
+      set({ authUser: null})
+      toast.success("Logged out successfully")
+    } catch (error) {
+      toast.error((error)?.response?.data?.message || "An error occurred during logout");
     }
   }
 }))
